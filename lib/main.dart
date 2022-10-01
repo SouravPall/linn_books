@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linn_books/pages/Income_page.dart';
 import 'package:linn_books/pages/home_page.dart';
 import 'package:linn_books/utils/categories.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (_) => HomePage(),
+        IncomePage.routeName: (_) => IncomePage(),
       },
     );
   }

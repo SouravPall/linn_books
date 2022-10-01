@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/income-page');
+        },
         backgroundColor: const Color(0xFF092d7c),
         child: const Icon(Icons.add),
       ),
@@ -32,7 +34,6 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-
             color: Colors.transparent,
             child: SafeArea(
               child: Padding(
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 3.0),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Row(
@@ -164,7 +165,55 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30,),
+                    Row(
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)
+                          ),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              Text('+0.00'),
+                            ],
+                          ),
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              Text('+0.00'),
+                            ],
+                          ),
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              Text('+0.00'),
+                            ],
+                          ),
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              Text('+0.00'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 3,),
 
                     //----------categories------
                     Column(
@@ -363,7 +412,7 @@ class _HomePageState extends State<HomePage> {
                             elevation: 4,
                             child: Column(
                               children: [
-                                SizedBox(height: 7,),
+                                Text('Records'),
                               ],
                             ),
                           ),
@@ -381,3 +430,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
