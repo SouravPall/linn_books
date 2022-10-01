@@ -22,17 +22,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      //extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(0xFF092d7c),
+        child: const Icon(Icons.add),
+      ),
       backgroundColor: const Color(0xFF092d7c),
       body: Stack(
         children: [
           Container(
-            //height: height * 0.36,
-            //width: width,
+
             color: Colors.transparent,
             child: SafeArea(
               child: Padding(
@@ -94,71 +94,74 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Row(
-                                  children: const [
-                                    Text(
-                                      'Sourav',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: Row(
+                                    children: const [
+                                      Text(
+                                        'Sourav',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                      size: 24,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Text(
-                                '${DateFormat('dd-MMM hh:mm').format(today)}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Text(
-                                'Balance',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'images/taka.png',
-                                    height: 10,
-                                    width: 10,
-                                    fit: BoxFit.cover,
-                                    color: Colors.white,
-                                  ),
-                                  const Text(
-                                    '0.0',
-                                    style: TextStyle(
+                                      Icon(
+                                        Icons.arrow_drop_down,
                                         color: Colors.white,
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold),
+                                        size: 24,
+                                      )
+                                    ],
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+                                ),
+                                Text(
+                                  '${DateFormat('dd-MMM hh:mm').format(today)}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                const Text(
+                                  'Balance',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/taka.png',
+                                      height: 10,
+                                      width: 10,
+                                      fit: BoxFit.cover,
+                                      color: Colors.white,
+                                    ),
+                                    const Text(
+                                      '0.0',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 30,),
@@ -348,16 +351,22 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.blueGrey,
                     child: ListView.builder(
                       controller: myScrollController,
-                      itemCount: 15,
+                      itemCount: 1,
                       itemBuilder: (BuildContext context, int index){
-                        return ListTile(
-                          isThreeLine: true,
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.pink,
+                        return Padding(
+                            padding: const EdgeInsets.only(
+                            left: 1, right: 2, top: 5, bottom: 5),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            elevation: 4,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 7,),
+                              ],
+                            ),
                           ),
-                          title: Text('Categories ${index+1}'),
-                          subtitle: Text('From Cash on Hand'),
-                          trailing: const Text('300'),
                         );
                       },
 
@@ -365,9 +374,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               }
-          )
+          ),
         ],
       ),
+
     );
   }
 }
