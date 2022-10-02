@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
+  static const routeName = '/my-drawer';
   const MyHeaderDrawer({Key? key}) : super(key: key);
 
   @override

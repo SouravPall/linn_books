@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:linn_books/utils/categories.dart';
 
+import '../widgets/my_header_drawer.dart';
+
+
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -50,7 +53,9 @@ class _HomePageState extends State<HomePage> {
                               width: 10,
                             ),
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+
+                                },
                                 child: Image.asset(
                                   'images/menu.png',
                                   height: 30,
@@ -167,48 +172,68 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)
-                          ),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              Text('+0.00'),
-                            ],
-                          ),
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                          ),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              Text('+0.00'),
-                            ],
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              elevation: 4,
+                              child: Column(
+                                children: [
+                                  Text('+0.00'),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              elevation: 4,
+                              child: Column(
+                                children: [
+                                  Text('+0.00'),
+                                ],
+                              ),
+                            ),
                           ),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              Text('+0.00'),
-                            ],
+                        ), 
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              elevation: 4,
+                              child: Column(
+                                children: [
+                                  Text('+0.00'),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                          ),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              Text('+0.00'),
-                            ],
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              elevation: 4,
+                              child: Column(
+                                children: [
+                                  Text('+0.00'),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -228,8 +253,13 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/save-money.png',
+                                      InkWell(
+                                        onTap : () {
+                                          Navigator.pushNamed(context, '/income-page');
+                                        },
+                                        child: Categories(
+                                          categoriesList: 'images/save-money.png',
+                                        ),
                                       ),
                                       Text(
                                         'Income',
@@ -245,8 +275,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/expenses.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/expenses.png',
+                                        ),
                                       ),
                                       Text(
                                         'Expense',
@@ -262,8 +295,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/loan.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/loan.png',
+                                        ),
                                       ),
                                       Text(
                                         'Loan',
@@ -279,8 +315,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/sand-clock.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/sand-clock.png',
+                                        ),
                                       ),
                                       Text(
                                         'Sync',
@@ -296,8 +335,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/notes.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/notes.png',
+                                        ),
                                       ),
                                       Text(
                                         'NList',
@@ -313,8 +355,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/wallet.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/wallet.png',
+                                        ),
                                       ),
                                       Text(
                                         'Wallet',
@@ -330,8 +375,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/back-in-time.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/back-in-time.png',
+                                        ),
                                       ),
                                       Text(
                                         'Fix Pay',
@@ -347,8 +395,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Column(
                                     children: [
-                                      Categories(
-                                        categoriesList: 'images/essential.png',
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/essential.png',
+                                        ),
                                       ),
                                       Text(
                                         'Budget',
@@ -363,9 +414,12 @@ class _HomePageState extends State<HomePage> {
                                     width: 10,
                                   ),
                                   Column(
-                                    children: const [
-                                      Categories(
-                                        categoriesList: 'images/goal.png',
+                                    children: [
+                                      InkWell(
+                                        onTap : () {},
+                                        child: Categories(
+                                          categoriesList: 'images/goal.png',
+                                        ),
                                       ),
                                       Text(
                                         'Goal',
@@ -398,27 +452,55 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     height: 800,
                     color: Colors.blueGrey,
-                    child: ListView.builder(
-                      controller: myScrollController,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index){
-                        return Padding(
-                            padding: const EdgeInsets.only(
-                            left: 1, right: 2, top: 5, bottom: 5),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            elevation: 4,
-                            child: Column(
-                              children: [
-                                Text('Records'),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+                    child: DefaultTabController(
+                      length: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        child: Column(
+                          children:  [
+                            TabBar(
+                                tabs: [
+                                  Tab(text: 'Records',),
+                                  Tab(text: 'Loan',),
+                                ]),
+                            Expanded(
+                              child: TabBarView(
+                                  children: [
+                                    ListView.builder(
+                                      controller: myScrollController,
+                                      itemCount: 1,
+                                      itemBuilder: (BuildContext context, int index){
+                                        return Center(
+                                          child: Text('Load Data'),
+                                        );
+                                      },
 
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 100,
+                                          width: 100,
+                                          child: Image.asset('images/team.png'),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        const Text(
+                                          "No Loan Users Found",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+
+                                    )
+                                  ]),
+                            ),
+
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 );
