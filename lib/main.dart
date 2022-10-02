@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:linn_books/pages/Income_page.dart';
 import 'package:linn_books/pages/home_page.dart';
-import 'package:linn_books/utils/categories.dart';
+import 'package:linn_books/utils/drop_down_helper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.routeName: (_) => HomePage(),
         IncomePage.routeName: (_) => IncomePage(),
+
       },
     );
   }

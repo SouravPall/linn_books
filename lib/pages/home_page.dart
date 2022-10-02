@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             InkWell(
                                 onTap: () {
-
+                                  const MyHeaderDrawer();
                                 },
                                 child: Image.asset(
                                   'images/menu.png',
@@ -128,10 +128,10 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Text(
-                                  '${DateFormat('dd-MMM hh:mm').format(today)}',
+                                  '${DateFormat('dd-MMM hh:mm a').format(today)}',
                                   style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 3,),
+                    const SizedBox(height: 5,),
 
                     //----------categories------
                     Column(
