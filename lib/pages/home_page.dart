@@ -28,16 +28,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    if (isInit) Provider.of<IncomeProvider>(context, listen: false).getAllNIncome();
+    if (isInit)
+      Provider.of<IncomeProvider>(context, listen: false).getAllNIncome();
     isInit = false;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<IncomeProvider>(context, listen: false).incomeList.length);
+    print(
+        Provider.of<IncomeProvider>(context, listen: false).incomeList.length);
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/income-page');
@@ -488,51 +489,77 @@ class _HomePageState extends State<HomePage> {
                             Expanded(
                               child: TabBarView(children: [
                                 Consumer<IncomeProvider>(
-                                  builder: (context, provider, child) => provider.incomeList != null ? ListView.builder(
-                                      controller: myScrollController,
-                                      itemCount: provider.incomeList.length,
-                                      itemBuilder: (context, index) {
-                                        final incomeM = provider.incomeList[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Card(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                               Padding(
-                                                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                                                 child: Container(
-                                                   width: 30,
-                                                   height: 30,
-                                                   color: Colors.cyan,
-                                                 ),
-                                               ),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(right: 0),
-                                                  child: Column(
-                                                    children: [
-                                                      Text(incomeM.category.toString()),
-                                                      SizedBox(height: 5,),
-                                                      Text('From Cash On Hand'),
-                                                      SizedBox(height: 5,),
-                                                      Text('Income')
-                                                    ],
-                                                  ),
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    Text(incomeM.amount.toString()),
-                                                    Text(DateFormat('d-MMM-yyyy h:mm a').format(incomeM.createDate.toString())),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ) : Center(child: Text('No data added yet')),
+                                  builder: (context, provider, child) =>
+                                      provider.incomeList != null
+                                          ? ListView.builder(
+                                              controller: myScrollController,
+                                              itemCount: provider.incomeList.length,
+                                              itemBuilder: (context, index) {
+                                                final incomeM = provider.incomeList[index];
+                                                return SizedBox(
+                                                  height: 90,
+                                                  width: double.infinity,
+                                                  child: Card(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          alignment: Alignment.center,
+                                                          height: 45,
+                                                          width: 45,
+                                                          color: Colors.black54,
+                                                          child: Text(incomeM.category.substring(0, 2)),
+                                                        ),
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.only(left: 15),
+                                                            child: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(incomeM.category),
+                                                                SizedBox(
+                                                                    height: 5),
+                                                                Text(incomeM.note != null ? incomeM.note! : 'No note here'),
+                                                                SizedBox(
+                                                                    height: 5),
+                                                                Text('Income'),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                                            children: [
+                                                              Text(
+                                                                  '৳ ${incomeM.amount}'),
+                                                              SizedBox(
+                                                                  height: 5),
+                                                              Text(
+                                                                DateFormat('dd-MMM-yyyy, hh mm a').format(DateTime.parse(incomeM.createDate)),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Colors.grey,
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )),
+                                                );
+                                              },
+                                            )
+                                          : Center(
+                                              child: Text('No data added yet')),
                                 ),
-                               
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
