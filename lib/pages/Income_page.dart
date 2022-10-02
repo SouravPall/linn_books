@@ -16,13 +16,6 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
-  // List dropDownListData = [
-  //   {'title': 'Allowance', 'value': '1'},
-  //   {'title': 'Tips', 'value': '2'},
-  //   {'title': 'Other Income', 'value': '3'},
-  //   {'title': 'Salary', 'value': '4'},
-  //   {'title': 'Pretty cash', 'value': '5'},
-  // ];
   final items = ['Allowance', 'Tips', 'Other', 'Salary', 'Pretty cash'];
   String? defaultValue;
   final TextEditingController _amountController = TextEditingController();
@@ -31,9 +24,9 @@ class _IncomePageState extends State<IncomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black,
         elevation: 0,
         title: const Center(child: Text('Add Income')),
         centerTitle: true,

@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     print(Provider.of<IncomeProvider>(context, listen: false).incomeList.length);
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/income-page');
@@ -494,11 +495,38 @@ class _HomePageState extends State<HomePage> {
                                         final incomeM = provider.incomeList[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: 200,
-                                            width: double.infinity,
-                                            color: Colors.amber,
-                                            child: Text(incomeM.category),
+                                          child: Card(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                               Padding(
+                                                 padding: const EdgeInsets.symmetric(horizontal: 5),
+                                                 child: Container(
+                                                   width: 30,
+                                                   height: 30,
+                                                   color: Colors.cyan,
+                                                 ),
+                                               ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right: 0),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(incomeM.category.toString()),
+                                                      SizedBox(height: 5,),
+                                                      Text('From Cash On Hand'),
+                                                      SizedBox(height: 5,),
+                                                      Text('Income')
+                                                    ],
+                                                  ),
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Text(incomeM.amount.toString()),
+                                                    Text(DateFormat('d-MMM-yyyy h:mm a').format(incomeM.createDate.toString())),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         );
                                       },

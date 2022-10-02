@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/Income_model.dart';
 
 class DBHelper {
-  static  String createTableIncome = '''
+  static  var createTableIncome = '''
   create table $tableIncome(
   $tableIncomeColId integer primary key,
   $tableIncomeColNote text,
