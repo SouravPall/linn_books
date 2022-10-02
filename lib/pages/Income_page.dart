@@ -1,5 +1,10 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_null_comparison, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:linn_books/providers/income_provider.dart';
+import 'package:provider/provider.dart';
+import '../models/Income_model.dart';
 import '../widgets/custom_text_form_fiel.dart';
 
 class IncomePage extends StatefulWidget {
@@ -11,18 +16,17 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
-
-  List dropDownListData = [
-    {'title': 'Allowance', 'value': '1'},
-    {'title': 'Tips', 'value': '2'},
-    {'title': 'Other Income', 'value': '3'},
-    {'title': 'Salary', 'value': '4'},
-    {'title': 'Pretty cash', 'value': '5'},
-  ];
-  String defaultValue = '';
+  // List dropDownListData = [
+  //   {'title': 'Allowance', 'value': '1'},
+  //   {'title': 'Tips', 'value': '2'},
+  //   {'title': 'Other Income', 'value': '3'},
+  //   {'title': 'Salary', 'value': '4'},
+  //   {'title': 'Pretty cash', 'value': '5'},
+  // ];
+  final items = ['Allowance', 'Tips', 'Other', 'Salary', 'Pretty cash'];
+  String? defaultValue;
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _dateTimeController = TextEditingController();
+
   DateTime? _dateTime;
   @override
   Widget build(BuildContext context) {
@@ -57,12 +61,13 @@ class _IncomePageState extends State<IncomePage> {
                 alignment: Alignment.centerLeft,
                 height: 60,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black38)
-                ),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black38)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: Text(_dateTime == null ? DateFormat('dd/MM/yyyy').format(DateTime.now()) : DateFormat('dd/MM/yyyy').format(_dateTime!)),
+                  child: Text(_dateTime == null
+                      ? DateFormat('dd/MM/yyyy').format(DateTime.now())
+                      : DateFormat('dd/MM/yyyy').format(_dateTime!)),
                 ),
               ),
             ),
@@ -75,51 +80,64 @@ class _IncomePageState extends State<IncomePage> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  value: defaultValue,
-                  isDense: true,
+                  hint: Text(
+                    'Select Category',
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                  ),
                   isExpanded: true,
-                  menuMaxHeight: 350,
-                  items: [
-                    const DropdownMenuItem(
-                        value: "",
-                        child: Text(
-                          "Select",
-                        )),
-                    ...dropDownListData.map<DropdownMenuItem<String>>((data) {
-                      return DropdownMenuItem(
-                          value: data['value'],
-                          child: Text(data['title']));
-                    }).toList(),
-                  ],
-                  onChanged: (newValue) {
-                    setState(
-                          () {
-                        defaultValue = newValue!;
-                        print(defaultValue);
-                      },
-                    );
+                  value: defaultValue,
+                  items: items
+                      .map(
+                        (item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      defaultValue = value;
+                    });
                   },
                 ),
               ),
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
-              onPressed: () {
-                if (defaultValue == "") {
-                  print("Please Select a Category");
+              onPressed: () async {
+                if (_amountController.text != null &&
+                    defaultValue != null &&
+                    _dateTime != null) {
+                  final incomeModel = IncomeModel(
+                    createDate: _dateTime.toString(),
+                    category: defaultValue.toString(),
+                    amount: int.parse(_amountController.text),
+                  );
+                  final status =
+                      await Provider.of<IncomeProvider>(context, listen: false)
+                          .insertIncome(incomeModel);
+                      print(_dateTime);
+                      print(defaultValue);
+                      print(_amountController.text);
+                  if (status) {
+                    Navigator.pushNamed(context, '/home-page');
+                  }
                 } else {
-                  print("Selected Category Value $defaultValue");
+                  print('wrong');
                 }
-                Navigator.pushNamed(context, '/home-page');
               },
               child: const Text("Submit"),
             ),
-
           ],
         ),
       ),
     );
   }
+
   Future<void> pickDateTime() async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
@@ -128,24 +146,21 @@ class _IncomePageState extends State<IncomePage> {
         firstDate: DateTime(DateTime.now().year - 100),
         lastDate: DateTime(DateTime.now().year + 1),
         builder: (context, child) => Theme(
-          data: ThemeData().copyWith(
-            colorScheme: const ColorScheme.light(
-                primary: Colors.greenAccent,
-                onPrimary: Colors.white,
-                onSurface: Colors.black),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: child ?? const Text(''),
-        ));
+              data: ThemeData().copyWith(
+                colorScheme: const ColorScheme.light(
+                    primary: Colors.greenAccent,
+                    onPrimary: Colors.white,
+                    onSurface: Colors.black),
+                dialogBackgroundColor: Colors.white,
+              ),
+              child: child ?? const Text(''),
+            ));
     if (newDate == null) {
       return;
     }
     setState(() {
       _dateTime = newDate;
       String dob = DateFormat('dd/MM/yyyy').format(newDate);
-      _dateTimeController.text = dob;
     });
   }
-
-
 }

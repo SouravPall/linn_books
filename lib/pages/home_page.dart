@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:linn_books/providers/income_provider.dart';
 import 'package:linn_books/utils/categories.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/my_header_drawer.dart';
-
-
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late DateTime today;
+  bool isInit = true;
 
   @override
   void initState() {
@@ -24,7 +27,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void didChangeDependencies() {
+    if (isInit) Provider.of<IncomeProvider>(context, listen: false).getAllNIncome();
+    isInit = false;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(Provider.of<IncomeProvider>(context, listen: false).incomeList.length);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -37,479 +48,492 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            color: Colors.transparent,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //-------Menu----------
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  const MyHeaderDrawer();
-                                },
-                                child: Image.asset(
-                                  'images/menu.png',
-                                  height: 30,
-                                  width: 30,
-                                  fit: BoxFit.cover,
-                                  color: Colors.white,
-                                )),
-                            const SizedBox(width: 10),
-                            const Text(
-                              'Linn',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const Text(
-                              'Books',
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        //----------Icon-------
-                        TextButton(
-                          onPressed: () {},
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              'images/key-person.png',
-                              height: 40,
-                              width: 40,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 3.0),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                  child: Row(
-                                    children: const [
-                                      Text(
-                                        'Sourav',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.white,
-                                        size: 24,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Text(
-                                  '${DateFormat('dd-MMM hh:mm a').format(today)}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                const Text(
-                                  'Balance',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'images/taka.png',
-                                      height: 10,
-                                      width: 10,
-                                      fit: BoxFit.cover,
-                                      color: Colors.white,
-                                    ),
-                                    const Text(
-                                      '0.0',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)
-                              ),
-                              elevation: 4,
-                              child: Column(
-                                children: [
-                                  Text('+0.00'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              elevation: 4,
-                              child: Column(
-                                children: [
-                                  Text('+0.00'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ), 
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              elevation: 4,
-                              child: Column(
-                                children: [
-                                  Text('+0.00'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              elevation: 4,
-                              child: Column(
-                                children: [
-                                  Text('+0.00'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5,),
-
-                    //----------categories------
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 150,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.all(4.0),
+              color: Colors.transparent,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //-------Menu----------
+                          Row(
                             children: [
-                              Row(
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    const MyHeaderDrawer();
+                                  },
+                                  child: Image.asset(
+                                    'images/menu.png',
+                                    height: 30,
+                                    width: 30,
+                                    fit: BoxFit.cover,
+                                    color: Colors.white,
+                                  )),
+                              const SizedBox(width: 10),
+                              const Text(
+                                'Linn',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Text(
+                                'Books',
+                                style: TextStyle(
+                                  color: Colors.orange,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          //----------Icon-------
+                          TextButton(
+                            onPressed: () {},
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                'images/key-person.png',
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 3.0, horizontal: 3.0),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
                                 children: [
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {
-                                          Navigator.pushNamed(context, '/income-page');
-                                        },
-                                        child: Categories(
-                                          categoriesList: 'images/save-money.png',
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Sourav',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
+                                        Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.white,
+                                          size: 24,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    '${DateFormat('dd-MMM hh:mm a').format(today)}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  const Text(
+                                    'Balance',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'images/taka.png',
+                                        height: 10,
+                                        width: 10,
+                                        fit: BoxFit.cover,
+                                        color: Colors.white,
                                       ),
-                                      Text(
-                                        'Income',
+                                      const Text(
+                                        '0.0',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 15.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/expenses.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Expense',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/loan.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Loan',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/sand-clock.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Sync',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/notes.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'NList',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/wallet.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Wallet',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/back-in-time.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Fix Pay',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/essential.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Budget',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        onTap : () {},
-                                        child: Categories(
-                                          categoriesList: 'images/goal.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Goal',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
+                                  )
                                 ],
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                elevation: 4,
+                                child: Column(
+                                  children: [
+                                    Text('+0.00'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 4,
+                                child: Column(
+                                  children: [
+                                    Text('+0.00'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 4,
+                                child: Column(
+                                  children: [
+                                    Text('+0.00'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 4,
+                                child: Column(
+                                  children: [
+                                    Text('+0.00'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+
+                      //----------categories------
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 150,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.all(4.0),
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, '/income-page');
+                                          },
+                                          child: Categories(
+                                            categoriesList:
+                                                'images/save-money.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Income',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList:
+                                                'images/expenses.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Expense',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList: 'images/loan.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Loan',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList:
+                                                'images/sand-clock.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Sync',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList: 'images/notes.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'NList',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList: 'images/wallet.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Wallet',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList:
+                                                'images/back-in-time.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Fix Pay',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList:
+                                                'images/essential.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Budget',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Categories(
+                                            categoriesList: 'images/goal.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Goal',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ),
+              )),
           DraggableScrollableSheet(
               initialChildSize: 0.6,
               minChildSize: 0.6,
               maxChildSize: 0.8,
-              builder: (BuildContext context, myScrollController){
+              builder: (BuildContext context, myScrollController) {
                 return ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(25.0)),
                   child: Container(
                     height: 800,
                     color: Colors.blueGrey,
                     child: DefaultTabController(
                       length: 2,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 4),
                         child: Column(
-                          children:  [
-                            TabBar(
-                                tabs: [
-                                  Tab(text: 'Records',),
-                                  Tab(text: 'Loan',),
-                                ]),
+                          children: [
+                            TabBar(tabs: [
+                              Tab(
+                                text: 'Records',
+                              ),
+                              Tab(
+                                text: 'Loan',
+                              ),
+                            ]),
                             Expanded(
-                              child: TabBarView(
-                                  children: [
-                                    ListView.builder(
+                              child: TabBarView(children: [
+                                Consumer<IncomeProvider>(
+                                  builder: (context, provider, child) => provider.incomeList != null ? ListView.builder(
                                       controller: myScrollController,
-                                      itemCount: 1,
-                                      itemBuilder: (BuildContext context, int index){
-                                        return Center(
-                                          child: Text('Load Data'),
+                                      itemCount: provider.incomeList.length,
+                                      itemBuilder: (context, index) {
+                                        final incomeM = provider.incomeList[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 200,
+                                            width: double.infinity,
+                                            color: Colors.amber,
+                                            child: Text(incomeM.category),
+                                          ),
                                         );
                                       },
-
+                                    ) : Center(child: Text('No data added yet')),
+                                ),
+                               
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: Image.asset('images/team.png'),
                                     ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: 100,
-                                          width: 100,
-                                          child: Image.asset('images/team.png'),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        const Text(
-                                          "No Loan Users Found",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-
-                                    )
-                                  ]),
+                                    const SizedBox(height: 20),
+                                    const Text(
+                                      "No Loan Users Found",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ]),
                             ),
-
                           ],
                         ),
                       ),
                     ),
                   ),
                 );
-              }
-          ),
+              }),
         ],
       ),
-
     );
   }
 }
-

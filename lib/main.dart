@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:linn_books/pages/Income_page.dart';
 import 'package:linn_books/pages/home_page.dart';
+import 'package:linn_books/providers/income_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => IncomeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
